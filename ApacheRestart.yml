@@ -1,0 +1,21 @@
+---
+- hosts: "{{ server }}"
+  tasks:
+  - name: Stop Tomacat
+    win_service:
+      name: Tomcat6
+      state: stopped
+  - name: Find log files
+    win_find:
+      paths: C:\Program Files (x86)\Apache Software Foundation\Tomcat 6.0\logs
+      patterns: "*.log"
+    register: files_to_delete
+  - name: Delete log files
+    win_file:
+      path: "{{ item.path }}"
+      state: absent
+    with_items: "{{ files_to_delete.files }}"
+  - name: Start Tomcat
+    win_service:
+      name: Tomcat6
+      state: started
