@@ -1,0 +1,9 @@
+- name: Grow Volume 
+  hpe3par_volume:
+    storage_system_ip=192.168.1.99
+    storage_system_username=3paradm
+    storage_system_password=3pardata
+    state=grow
+    volume_name=MOL-SDC-SQL07-MDF
+    size=10
+    size_unit=GiB
